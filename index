@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Histology & Clinical Training Platform </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Menu Screen -->
+    <div class="menu-screen" id="menuScreen">
+        <div class="menu-header">
+            <h1>Blood Histology & Clinical Training Platform</h1>
+            <p>Advanced Interactive Educational Modules</p>
+        </div>
+        
+        <div class="module-cards">
+            <div class="module-card" onclick="showModule('sandbox')">
+                <div class="module-icon">🔬</div>
+                <h3>Interactive Sandbox</h3>
+                <p>Explore blood cell morphology and pathology in an immersive microscopic environment with enhanced physics simulation.</p>
+                <ul class="module-features">
+                    <li>6 Pathology scenarios with realistic cell physics</li>
+                    <li>Interactive cell examination with detailed tooltips</li>
+                    <li>Advanced zoom and density controls</li>
+                    <li>Sickle cell aggregation simulation</li>
+                    <li>Blast cell pulsing in leukemia cases</li>
+                </ul>
+            </div>
+            
+            <div class="module-card" onclick="showModule('treatment')">
+                <div class="module-icon">👨‍⚕️</div>
+                <h3>Clinical Diagnostic Simulator</h3>
+                <p>Medical student-level diagnostic challenges with comprehensive workup, lab interpretation, and differential diagnosis.</p>
+                <ul class="module-features">
+                    <li>10 complex hematologic cases with real lab values</li>
+                    <li>Multi-stage diagnostic process (History → Labs → Differential → Management)</li>
+                    <li>Complete CBC panels with reference ranges</li>
+                    <li>Differential diagnosis building and ranking</li>
+                    <li>Clinical reasoning with partial credit scoring</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sandbox Module -->
+    <div class="app-screen" id="sandboxScreen">
+        <div class="app-header">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <div class="app-title">Interactive Microscopy Sandbox</div>
+        </div>
+
+        <div class="main-container">
+            <div class="sidebar">
+                <div class="pathology-selector">
+                    <h3>Pathology Cases</h3>
+                    <button class="pathology-btn active" data-pathology="normal">Normal Blood</button>
+                    <button class="pathology-btn" data-pathology="anemia">Iron Deficiency Anemia</button>
+                    <button class="pathology-btn" data-pathology="leukemia">Acute Leukemia</button>
+                    <button class="pathology-btn" data-pathology="thrombocytopenia">Thrombocytopenia</button>
+                    <button class="pathology-btn" data-pathology="sickle">Sickle Cell Disease</button>
+                    <button class="pathology-btn" data-pathology="polycythemia">Polycythemia Vera</button>
+                </div>
+
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="zoom">Magnification Level</label>
+                        <input type="range" id="zoom" class="slider" min="1" max="5" value="2" step="0.1">
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="cellDensity">Cell Density</label>
+                        <input type="range" id="cellDensity" class="slider" min="20" max="100" value="60" step="5">
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="animationSpeed">Animation Speed</label>
+                        <input type="range" id="animationSpeed" class="slider" min="0.1" max="3" value="1" step="0.1">
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="content-header">
+                    <button class="animation-toggle" id="animationToggle">Pause Animation</button>
+                </div>
+
+                <div class="microscope-view">
+                    <div class="blood-field" id="bloodField"></div>
+                    <div class="zoom-indicator" id="zoomIndicator">400x</div>
+                </div>
+
+                <div class="pathology-info" id="pathologyInfo">
+                    <h3>Normal Blood Smear</h3>
+                    <p>A normal peripheral blood smear displays red blood cells that are uniform in size and shape with adequate central pallor.</p>
+                </div>
+
+                <div class="stats-panel">
+                    <div class="stat-card">
+                        <h4>RBC Count</h4>
+                        <div class="value" id="rbcCount">4.5M</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>WBC Count</h4>
+                        <div class="value" id="wbcCount">7K</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Platelet Count</h4>
+                        <div class="value" id="plateletCount">250K</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Hematocrit</h4>
+                        <div class="value" id="hematocrit">42%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Treatment Simulator Module -->
+    <div class="app-screen" id="treatmentScreen">
+        <div class="app-header">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <div class="app-title">Clinical Diagnostic Simulator</div>
+            <div class="stage-indicator" id="stageIndicator">History Taking</div>
+        </div>
+
+        <div class="treatment-container">
+            <div class="patient-interface">
+                <div class="patient-avatar">
+                    <div class="avatar-display">👤</div>
+                    <div class="patient-info">
+                        <h4 id="patientName">Loading Patient...</h4>
+                        <p id="patientAge">Age: --</p>
+                        <p id="patientGender">Gender: --</p>
+                        <p id="patientHistory">Medical History: Loading...</p>
+                    </div>
+                </div>
+
+                <div class="chat-interface">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message patient">
+                            <p>Hello Doctor, I've been feeling quite unwell lately...</p>
+                        </div>
+                    </div>
+                    <div class="treatment-options" id="treatmentOptions">
+                        <button class="treatment-btn" onclick="startCase()">Start New Case</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lab Results Panel -->
+            <div class="lab-panel" id="labPanel" style="display: none;">
+                <h3>Laboratory Results</h3>
+                <div class="lab-category" id="cbcResults"></div>
+                <div class="lab-category" id="additionalLabs"></div>
+            </div>
+
+            <!-- Differential Diagnosis Panel -->
+            <div class="differential-panel" id="differentialPanel" style="display: none;">
+                <h3>Build Your Differential Diagnosis</h3>
+                <p class="instruction">Select and rank 3-5 diagnoses based on the clinical presentation and labs</p>
+                <div id="differentialOptions"></div>
+                <div class="selected-differentials" id="selectedDifferentials"></div>
+                <button class="submit-btn" id="submitDifferential" style="display: none;" onclick="treatmentApp.submitDifferential()">Submit Differential</button>
+            </div>
+
+            <div class="case-results" id="caseResults" style="display: none;">
+                <div class="results-header">
+                    <div class="score-indicator" id="scoreIndicator">--</div>
+                    <div>
+                        <h3 id="resultsTitle">Case Complete</h3>
+                        <p id="resultsText">Your diagnostic accuracy and treatment decisions will be evaluated here.</p>
+                        <div class="score-breakdown" id="scoreBreakdown"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="interactive-tooltip" id="tooltip"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
